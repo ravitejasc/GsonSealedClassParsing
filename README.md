@@ -1,2 +1,2 @@
-# NetworkTest
+# Gson Sealed class parsing
  
