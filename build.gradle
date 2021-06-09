@@ -1,0 +1,41 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext.lifecycle_version = "2.3.1"
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.0-beta03"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+subprojects {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        maven { url "https://artifactory.cronapp.io/public-release/" }
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            freeCompilerArgs = ['-Xjvm-default=enable', '-Xopt-in=kotlin.RequiresOptIn',
+                                '-Xopt-in=kotlin.time.ExperimentalTime', '-Xinline-classes',
+            ]
+            // "-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+            jvmTarget = "1.8"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
